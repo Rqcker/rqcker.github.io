@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="default">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Junhao">
+
+
+
+    <meta name="description" content="Junhao Personal Website">
+
+
+
+<title>A brief description of machine learning and data | Junhao Song</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+    <script src="/js/404/bodymovin.js"></script>
+    
+    <script src="/js/404/data.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Junhao&#39;s Website</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Junhao&#39;s Website</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">A brief description of machine learning and data</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Junhao</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 30, 2022&nbsp;&nbsp;21:57:41</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Machine-Learning/">Machine Learning</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>@[TOC]</p>
+<h1 id="1-Foreword"><a href="#1-Foreword" class="headerlink" title="1.Foreword"></a>1.Foreword</h1><p>This article is intended to be a brief introduction to some of the knowledge points about data mining and machine learning. The whole article will start with a brief introduction to the types of machine learning, the workflow of machine learning, examples of data and types of attributes. I hope this article will be useful for some people who want to learn about machine learning and get started with data mining. This will be a concise article.</p>
+<h1 id="2-Four-types-of-machine-learning"><a href="#2-Four-types-of-machine-learning" class="headerlink" title="2.Four types of machine learning"></a>2.Four types of machine learning</h1><ul>
+<li>Classification: Given a set of classified examples, learn to classify a new example</li>
+<li>Association: finding any interesting combinations of associated properties between attributes or combinations of attributes </li>
+<li>Clustering: grouping similar examples together</li>
+<li>Numerical prediction: instead of classifying, predict a numerical value</li>
+</ul>
+<h1 id="3-Workflow-of-machine-learning"><a href="#3-Workflow-of-machine-learning" class="headerlink" title="3.Workflow of machine learning"></a>3.Workflow of machine learning</h1><p>Machine learning will start by acquiring the data, pre-processing it to ensure that it is clean, by purifying the data set and removing any data that is not useful. The processed data is then used to create a model and the created model is tested until the target conditions are met and then the model is deployed, which is a traditional machine learning process. Most machine learning workflows nowadays will have a step to optimise the model, by tweaking hyperparameters etc. Many articles on the internet are not written in a concise and easy to understand way, so here I have used a concise machine learning flow diagram that my teacher Ekaterina Komendantskaya has demonstrated as follows.<br><img src="https://img-blog.csdnimg.cn/b326355503174d54ae7089eb8fa841df.png" alt="ML Workflow"></p>
+<h1 id="4-Description-of-the-data"><a href="#4-Description-of-the-data" class="headerlink" title="4.Description of the data"></a>4.Description of the data</h1><h2 id="1-Instance"><a href="#1-Instance" class="headerlink" title="(1).Instance"></a>(1).Instance</h2><ul>
+<li>Simple examples - data rows</li>
+<li>Input to the learning programme = set of examples (data set)</li>
+<li>Represented as a single relationship, or a flat file</li>
+<li>Inputs are in a rather limited form</li>
+<li>No relationships between instances<h2 id="2-Attributes"><a href="#2-Attributes" class="headerlink" title="(2).Attributes"></a>(2).Attributes</h2></li>
+<li>Each instance is described by a fixed set of predefined attributes</li>
+<li>The number of attributes may vary</li>
+<li>The existence of one attribute may depend on the value of another</li>
+</ul>
+<p>Often, we are interested in predicting the value of a particular attribute. This is because it is determined by the values of other attributes. What we want to predict is called the <strong>class</strong> or the <strong>target</strong>.</p>
+<p>Addendum: In general for two-dimensional datasets, each row is an instance and each column is an attribute.</p>
+<h1 id="5-Attribute-value-types"><a href="#5-Attribute-value-types" class="headerlink" title="5.Attribute value types"></a>5.Attribute value types</h1><p>Four common types of attribute values will be described here.</p>
+<h2 id="1-Nominal"><a href="#1-Nominal" class="headerlink" title="(1).Nominal"></a>(1).Nominal</h2><ul>
+<li>Nominal comes from the Latin name</li>
+<li>Values are different symbols</li>
+<li>Values are only used as labels or names</li>
+<li>There is no implied relationship between nominal values</li>
+<li>No sorting or distance measurement</li>
+<li>Only equality tests can be performed</li>
+<li>Also known as categorical</li>
+</ul>
+<p>For example, colour (red, yellow…) , Country (UK, USA…)</p>
+<h2 id="2-Ordinal"><a href="#2-Ordinal" class="headerlink" title="(2).Ordinal"></a>(2).Ordinal</h2><ul>
+<li>The values are sequential</li>
+<li>There is no definite distance between the values</li>
+<li>Addition and subtraction cannot be used</li>
+</ul>
+<p>For example, temperature can be expressed in terms of hot, fit and cold</p>
+<h2 id="3-Interval"><a href="#3-Interval" class="headerlink" title="(3).Interval"></a>(3).Interval</h2><ul>
+<li>is ordered and also in fixed, equal units</li>
+<li>Sum or product is meaningless</li>
+<li>Zero is not defined</li>
+</ul>
+<p>For example, temperature in degrees Fahrenheit, A.D. chronology</p>
+<h2 id="4-Ratio"><a href="#4-Ratio" class="headerlink" title="(4).Ratio"></a>(4).Ratio</h2><ul>
+<li>Defines a quantity with zero points.</li>
+<li>Ratio is treated as a real number</li>
+<li>All mathematical operations are allowed</li>
+<li>Interval values can be subtracted to obtain a Ratio</li>
+</ul>
+<p>For example, the distance between objects</p>
+<p><strong>Copyright Notice</strong><br>This article is referenced by the following references outside the content are <strong>J0hn</strong> original content, the final interpretation of the original author. If there is any infringement, please contact for deletion. Please do not reproduce it privately without my authorisation!</p>
+<h1 id="6-References"><a href="#6-References" class="headerlink" title="6. References"></a>6. References</h1><p>[1]. <strong>Data Mining Book</strong> <a target="_blank" rel="noopener" href="https://www.cs.waikato.ac.nz/ml/weka/book.html">https://www.cs.waikato.ac.nz/ml/weka/book.html</a></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Junhao</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://rqcker.github.io/2022/12/30/A-brief-description-of-machine-learning-and-data/">https://rqcker.github.io/2022/12/30/A-brief-description-of-machine-learning-and-data/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Machine-Learning/"># Machine Learning</a>
+                    
+                        <a href="/tags/AI/"># AI</a>
+                    
+                        <a href="/tags/Data-Mining/"># Data Mining</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/08/26/Machine%20Learning%20Analysis%20Platform%20Development/">Machine Learning Analysis Platform Development</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>Copyright © 2020-2021 Junhao. All right reserved. | Powered by <a href="https://junhaosong.com" target="_blank">Junhao</a> </span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
