@@ -209,27 +209,27 @@
 <h1 id="2-Traveling-Salesman-Problem-TSP"><a href="#2-Traveling-Salesman-Problem-TSP" class="headerlink" title="2. Traveling Salesman Problem (TSP)"></a>2. Traveling Salesman Problem (TSP)</h1><p>The traveling salesman problem (TSP) is a well-known combinatorial optimization problem in computer science and operations research. The goal of TSP is to find the shortest route that visits a given set of cities and returns to the starting city, while visiting each city only once. TSP has many practical applications, including vehicle routing planning, logistics, and facility localization.</p>
 <p>For example: Now there are four cities [A, B, C, D], A to B is assumed to be 3 distance units, B to C is 7 distance units, A to D is 5 time units, etc… To traverse all cities at once, and each city only once. What strategy should I choose to make the distance the shortest? </p>
 <div style="text-align: center">
-<img src="https://img-blog.csdnimg.cn/b1f2b1d3a3d74f53be48c8cbf14037f5.png"/>
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/abcd.png"/>
 </div>
 
 <p>TSP is NP-hard, which means that the time complexity of finding the optimal solution grows rapidly with the number of cities. So finding the optimal solution for TSP can be a challenging and time-consuming task, especially for large instances. Two commonly used methods to solve TSP are brute force search algorithm and greedy algorithm.</p>
 <h2 id="1-Brute-force-algorithm"><a href="#1-Brute-force-algorithm" class="headerlink" title="(1). Brute force algorithm"></a>(1). Brute force algorithm</h2><p>The brute force search algorithm, also known as brute force or exhaustive search, is a method of solving TSP by generating all possible combinations of cities and selecting the shortest one.</p>
 <p>The brute force search algorithm can find the optimal solution by listing all the routes and then comparing them. For example, in the example mentioned in the previous figure, the algorithm will list all the routes (assuming that the search starts from city A):</p>
 <div style="text-align: center">
-<img src="https://img-blog.csdnimg.cn/0c2e8c20c87e44938462c795e067bd6d.png"/>
-</div> 
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/map.png"/>
+</div>
 
 <p>Soon, six paths are obtained. But the three strategies are 35, 39, and 28 respectively (the distance unit and direction are irrelevant). According to this method, every situation can be searched violently. This is a case where there are few cities (nodes).</p>
 <p>Now suppose there are <code>n</code> cities, how many strategies should there be? Now that we have <code>n</code> cities, we have <code>(n-1)</code> options for the first time starting from a city. The second time there are <code>(n-2)</code> choices…. until the last time, there are <code>1</code> choices left. And because the strategy of one positive and one negative is the same. So divide its factorial by <code>2</code> :</p>
 <div style="text-align: center">
-<img src="https://img-blog.csdnimg.cn/2b247484ac164d39b747db9f3264e56a.png"/>
-</div> 
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/n.png"/>
+</div>
 
 <p>You can take several numbers for n to test, and quickly find that the time complexity of this method is exponential, which is almost infeasible for large instances of TSP. This algorithm is accurate, but very slow. Because the search complexity is too high, as long as the problem is slightly more complicated, the optimal solution cannot be obtained.</p>
 <h2 id="2-Greedy-algorithm"><a href="#2-Greedy-algorithm" class="headerlink" title="(2). Greedy algorithm"></a>(2). Greedy algorithm</h2><p>The greedy algorithm is a heuristic method that starts with an initial city and selects the nearest unvisited city as the next move. The algorithm continues until all cities have been visited and returns the starting city. The greedy algorithm will choose the local optimal route for traversal every time. Every step is optimal every time. </p>
 <div style="text-align: center">
-<img src="https://img-blog.csdnimg.cn/1baf3bf8ef9540ac886018647886399a.png"/>
-</div> 
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/abdca.png"/>
+</div>
 
 <p>For example, as shown above. The greedy algorithm is looking for the smallest distance unit every time, but the overall distance is the highest. The visible local optimum does not necessarily represent the global optimum. Although a greedy algorithm can provide good solutions for small instances of TSP, it cannot guarantee optimal solutions for large instances. A greedy algorithm finds a solution quickly, but not accurately. Can humans find an algorithm that combines a brute force search algorithm with a greedy algorithm? The optimal solution can be found quickly and accurately. Soon, the evolution of humans imitating creatures found <code>genetic algorithm</code>.</p>
 <h1 id="3-Genetic-Variation"><a href="#3-Genetic-Variation" class="headerlink" title="3. Genetic Variation"></a>3. Genetic Variation</h1><p>Genetic variation is a key concept in <code>evolutionary algorithm</code> (including genetic algorithms). It refers to the random variation in the characteristics of individuals in a population over generations. This variation is necessary for the evolution of the population and adaptation to its environment.</p>
@@ -245,16 +245,16 @@
 <p>In conclusion, Mendel’s and Morgan’s research on genetic recombination is crucial to the fundamentals of inheritance and the role of genes in the inheritance of traits. The findings provide a greater understanding of how organisms evolve over time and how genetic mutations play a role in the development of new species.</p>
 <p>Here we will talk about gene recombination (crossover) and gene variation, and will cite a lot of biological knowledge to explain:</p>
 <div style="text-align: center">
-<img src="https://img-blog.csdnimg.cn/1f2276c3ed924b7489042cdf04b9cb74.png"/>
-</div> 
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/bio.png"/>
+</div>
 
 
 <blockquote>
 <p>The process of genetic recombination: it is the exchange of genetic material between non-sister chromatids of homologous chromosomes. Homologous chromosomes line up in pairs, with genes along their entire length, forming a configuration with four chromatids, called a tetrad body. At this point, the chromatids are in close proximity to each other and some material from the two chromatids exchanges chromosomes, i.e. material breaks off and reattaches at the same position on the homologous chromosome. This exchange of genetic material can occur within the same pair Homologous chromosomes multiple times, creating a unique combination of genes. The process of genetic recombination: it is the exchange of genetic material between non-sister chromatids of homologous chromosomes. Homologous chromosomes line up in pairs, with genes along their entire length, forming a An arrangement of four chromatids is called a tetrad. At this point, the chromatids are in close proximity to each other and some material from the two chromatids exchanges chromosomes, i.e. material breaks off and reattaches at the same position on the homologous chromosome. This exchange of genetic material can occur within the same pair Multiple homologous chromosomes create unique genetic combinations.<br>Image Reference Biology LibreTexts. (2018). 7.6: Genetic Variation. [online]</p>
 </blockquote>
 <div style="text-align: center">
-<img src="https://img-blog.csdnimg.cn/b96c181d8e2a4d7e98de2199b8f25b00.png"/>
-</div> 
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/ga.png"/>
+</div>
 
 <p>At this stage, the tetrad moves to the metaphase kinetochore facing the plate of the opposite pole. Homologous pairs are randomly oriented at the equatorial plate. This event is the second mechanism by which variation is introduced into gametes or spores. Each cell undergoes meiosis and the arrangement of the tetrads is different. The amount of variation depends on the number of chromosomes that make up a set. There are two possibilities for positioning mid-plate. Therefore, the number of possible alignments is equal to 2n, where n is the number of chromosomes in each set. Given these two mechanisms, it is unlikely that any two haploid-producing meiotic cells will have the same genetic composition.</p>
 <blockquote>
@@ -264,7 +264,7 @@
 <h1 id="4-An-Overview-of-Genetic-Algorithms-GA"><a href="#4-An-Overview-of-Genetic-Algorithms-GA" class="headerlink" title="4. An Overview of Genetic Algorithms (GA)"></a>4. An Overview of Genetic Algorithms (GA)</h1><p>Genetic Algorithms (GA) are computer simulations of natural selection and evolution processes used to solve optimization problems. The algorithm works by mimicking the way organisms evolve through generations through the process of mutation, selection and recombination. GA is an evolutionary algorithm that uses the principles of natural selection and genetics to search for the best solution to a problem. In GA, a population of candidate solutions evolves over multiple generations through a process of selection, crossover, and mutation.</p>
 <p>A genetic algorithm starts with a population of randomly generated individuals, each individual representing a possible solution to an optimization problem. These individuals are then evaluated against a fitness function to determine each individual’s ability to solve problems. Individuals with the highest fitness are then selected for breeding, and their genetic material is recombined to produce new offspring. This process is repeated for several generations, with each iteration producing a new population of individuals with higher fitness. </p>
 <div style="text-align: center">
-<img src="https://img-blog.csdnimg.cn/7be5e69e65ed42faa95cb3dd485d9bfc.png"/>
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/gaflow.png"/>
 </div> 
 
 <p>As shown in the figure above, the basic process of the genetic algorithm is to initialize the entire population first, and then calculate the fitness of each individual in the population. The population is then processed for genetic variation. Then recalculate the fitness of each individual, and repeat the subsequent behavior until the condition is met.</p>
@@ -280,7 +280,7 @@
 <p>We look for its adaptability, which means the lower the price, the more adaptable it is. So we can write this fitness as <code>f= 1/d</code>, we call it fitness <code>1/d</code>. The lower the price, the higher the adaptability. The first route fitness should be 0.1, the second fitness 0.05, and the third fitness 0.05. The fourth fitness is 0.02. Or the first way is the best.</p>
 <p>What’s the next step after finding the fitness? According to the laws of genetics, those who adapt to nature are more likely to be inherited, and are more likely to have the next generation. So we say that the higher the fitness, the more likely it will be inherited. Let’s just let it be inherited according to probability. How to calculate the probability of this inheritance? We can use the fitness of each path and divide it by the sum of all fitness. This represents your fitness as a proportion of the population. The higher the ratio, the more likely you are to inherit it. How about explaining this problem from a probabilistic point of view?</p>
 <div style="text-align: center">
-<img src="https://img-blog.csdnimg.cn/9d51467453a34f3595d26cf716727dad.png"/>
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/p.png"/>
 </div> 
 
 
