@@ -78,10 +78,14 @@
         }
     });
 </script>
-<!-- 通过连接CDN加载MathJax的js代码 -->
-<script type="text/javascript" async
+
+<!-- <script type="text/javascript" async
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
+</script> -->
+
+<!-- CDN loading MathJax3.x -->
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 
 
         
@@ -265,7 +269,7 @@
 </div>
 
 <p>To derive the denoising mean $\mu_\theta(X_t, t)$, we can use the <strong>variational lower bound (VLB)</strong> to optimise the model’s parameters. Specifically, our objective is to maximise the likelihood of the model given the data, $p_\theta(X_0)$:</p>
-<p>$$<br>\log p_\theta(X_0) \geq \mathbb{E}<em>{q} \left(\log p_\theta(X_{0:T}) - \log q(X</em>{1:T} \mid X_0) \right) \tag{5}.<br>$$</p>
+<p>$$<br>\log p_\theta(X_0) \geq \mathbb{E}<em>{q} \left[ \log p_\theta(X_{0:T}) - \log q(X</em>{1:T} \mid X_0) \right] \tag{5}.<br>$$</p>
 <p>By expanding the variational lower bound, we obtain the following loss function:</p>
 <p>$$<br>\mathcal{L}<em>{\text{vlb}} = \mathbb{E}</em>{q} \left[ \sum_{t=2}^T \text{KL}(q(X_{t-1} \mid X_t, X_0) | p_\theta(X_{t-1} \mid X_t)) - \log p_\theta(X_0 \mid X_1) \right] \tag{6}.<br>$$</p>
 <p>The Kullback-Leibler (KL) divergence term in this loss function measures the difference between the model’s predicted distribution and the true distribution at each time step. By minimising this difference, the model learns how to progressively denoise, leading to the generation of high-quality images.</p>
