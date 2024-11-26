@@ -254,7 +254,7 @@
 <p>The above figure, taken from a seminal diffusion model paper [2], illustrates the Markov chain process of a diffusion model. To understand the entire process, we can expand it into a joint probability distribution from the clean image $X_0$ to any time step $t$:</p>
 <p>$$<br>q(X_{1:T} \mid X_0) = \prod_{t=1}^T q(X_t \mid X_{t-1}) \tag{2}.<br>$$</p>
 <p>To simplify the model, one can derive $X_t$ directly from $X_0$ by introducing the parameter $\alpha_t = 1 - \beta_t$, defining: </p>
-<p>$$<br>\begin{align}<br>\bar{\alpha}<em>t &amp;= \prod</em>{s=1}^t \alpha_{s}.<br>\end{align}<br>$$</p>
+<p>$$<br>\bar{\alpha}<em>t = \prod</em>{s=1}^{t} \alpha_s<br>$$</p>
 <p>Thus, $X_t$ can be expressed as:</p>
 <p>$$<br>q(X_t \mid X_0) = \mathcal{N}(X_t; \sqrt{\bar{\alpha}_t} X_0, (1 - \bar{\alpha}_t) \mathbf{I}) \tag{3}.<br>$$</p>
 <p>This formula indicates that, given the initial image $X_0$, the image at time step $t$, $X_t$, can be obtained by weighting $X_0$ with a time-dependent noise term.</p>
