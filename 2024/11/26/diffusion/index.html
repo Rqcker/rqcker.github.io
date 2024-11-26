@@ -253,7 +253,7 @@
 
 <p>The above figure, taken from a seminal diffusion model paper [2], illustrates the Markov chain process of a diffusion model. To understand the entire process, we can expand it into a joint probability distribution from the clean image $X_0$ to any time step $t$:</p>
 <p>$$<br>q(X_{1:T} \mid X_0) = \prod_{t=1}^T q(X_t \mid X_{t-1}) \tag{2}.<br>$$</p>
-<p>To simplify the model, one can derive $X_t$ directly from $X_0$ by introducing the parameter $\alpha_t = 1 - \beta_t$. And $\bar{\alpha}<em>t = \prod</em>{s=1}^t \alpha_s$. Thus, the formula can be expressed as:</p>
+<p>To simplify the model, one can derive $X_t$ directly from $X_0$ by introducing the parameter $\alpha_t = 1 - \beta_t$. And $\bar{\alpha}<em>t = \prod</em>{s=1}^t.$ Thus, $X_t$ can be expressed as:</p>
 <p>$$<br>q(X_t \mid X_0) = \mathcal{N}(X_t; \sqrt{\bar{\alpha}_t} X_0, (1 - \bar{\alpha}_t) \mathbf{I}) \tag{3}.<br>$$</p>
 <p>This formula indicates that, given the initial image $X_0$, the image at time step $t$, $X_t$, can be obtained by weighting $X_0$ with a time-dependent noise term.</p>
 <h2 id="2-2-Reverse-Denoising-Process"><a href="#2-2-Reverse-Denoising-Process" class="headerlink" title="2.2. Reverse Denoising Process"></a>2.2. Reverse Denoising Process</h2><p>In the reverse denoising process, we start with a fully noise-covered image $X_T$ and gradually denoise it to retrieve the original clean image $X_0$. This process is also known as the “generation process,” where we aim to learn a parameterised model $p_\theta(X_{t-1} \mid X_t)$ to denoise the image iteratively.</p>
