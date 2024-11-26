@@ -46,6 +46,45 @@
     
     
         
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+        
     
 
 
@@ -208,7 +247,10 @@
 <h1 id="2-Theoretical-Foundations-of-Diffusion-Models"><a href="#2-Theoretical-Foundations-of-Diffusion-Models" class="headerlink" title="2. Theoretical Foundations of Diffusion Models"></a>2. Theoretical Foundations of Diffusion Models</h1><p>A diffusion model consists of two main processes [1, 5]: <strong>the forward diffusion process</strong> and <strong>the reverse denoising process</strong>. Initially, the model adds noise incrementally to an image, transforming it into a completely random state; subsequently, the model denoises the image, restoring it to a clean state.</p>
 <h2 id="2-1-Forward-Diffusion-Process"><a href="#2-1-Forward-Diffusion-Process" class="headerlink" title="2.1. Forward Diffusion Process"></a>2.1. Forward Diffusion Process</h2><p>The forward diffusion process is a Markov chain that starts at time step $t=0$ and progressively adds noise to the image until, at the final time step $t=T$, the image is entirely covered in noise. The relationship between the image at time step $t$, denoted $X_t$, and the previous time step $X_{t-1}$ is given by:</p>
 <p>$$<br>q(X_t \mid X_{t-1}) = \mathcal{N}(X_t; \sqrt{1 - \beta_t} X_{t-1}, \beta_t \mathbf{I}) \tag{1},<br>$$<br>where $\mathcal{N}$ represents a normal distribution, $\beta_t$ is the amount of noise added at each time step, and $\mathbf{I}$ is the identity matrix.</p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/c6bdaa288cb1340ee235a9a5560aca2e.png" alt="The Markov chain of forward (reverse) diffusion process[2]."></p>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog5/diffusionprocess.png"/>
+</div>
+
 <p>The above figure, taken from a seminal diffusion model paper [2], illustrates the Markov chain process of a diffusion model. To understand the entire process, we can expand it into a joint probability distribution from the clean image $X_0$ to any time step $t$:</p>
 <p>$$<br>q(X_{1:T} \mid X_0) = \prod_{t=1}^T q(X_t \mid X_{t-1}) \tag{2}.<br>$$</p>
 <p>To simplify the model, one can derive $X_t$ directly from $X_0$ by introducing the parameter $\alpha_t = 1 - \beta_t$, defining:</p>
@@ -220,7 +262,10 @@
 <p>The fundamental equation of the reverse process is:</p>
 <p>$$<br>p_\theta(X_{t-1} \mid X_t) = \mathcal{N}(X_{t-1}; \mu_\theta(X_t, t), \Sigma_\theta(X_t, t)) \tag{4}.<br>$$</p>
 <p>Here, $\mu_\theta(X_t, t)$ is the denoising mean predicted by a neural network, such as the U-Net depicted below [3], and $\Sigma_\theta(X_t, t)$ is the denoising variance. In practical implementations, $\Sigma_\theta(X_t, t)$ is often assumed to be fixed to simplify the model’s learning process.</p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/e2488762aa3801baabd19e3bcbb090bf.png" alt="The U-net architecture[3]."></p>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog5/unet.png"/>
+</div>
+
 <p>To derive the denoising mean $\mu_\theta(X_t, t)$, we can use the <strong>variational lower bound (VLB)</strong> to optimise the model’s parameters. Specifically, our objective is to maximise the likelihood of the model given the data, $p_\theta(X_0)$:</p>
 <p>$$<br>\log p_\theta(X_0) \geq \mathbb{E}<em>{q} \left[ \log p_\theta(X_{0:T}) - \log q(X</em>{1:T} \mid X_0) \right] \tag{5}.<br>$$</p>
 <p>By expanding the variational lower bound, we obtain the following loss function:</p>
@@ -243,7 +288,7 @@
 <p><strong>Reference Frame and Previous Frames</strong>: The image generated at each time step depends on a reference frame and several previous frames to ensure visual consistency in the generated video. Let $\mathcal{F}_t$ be the current noisy frame, and $\mathcal{F}_r$ be the reference frame. The generation process can then be expressed as:</p>
 <p>$$<br>\mathcal{F}<em>{t-1} = f(\mathcal{F}</em>{t}, \mathcal{F}<em>r, \mathcal{F}</em>{t-1}, \mathcal{F}_{t-2}) + \epsilon \tag{9},<br>$$<br>where $f$ is the learned denoising function, and $\epsilon$ is the noise term. The following image shows the 68 facial landmarks extracted in our project.</p>
 <div style="text-align: center">
-<img src="https://img-blog.csdnimg.cn/img_convert/960e42ec53f0ba2d4eef6f328c18738b.png"/>
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog5/landmarks.png"/>
 </div>
 
 <p><strong>Interactive Guidance Module (IGM)</strong>: To generate interactive videos, the IGM dynamically adjusts the generation parameters for different characters to ensure natural and synchronised interactions. This module optimises the generation process by comparing the dialogue content, facial expression synchronisation, and audio-video coherence between characters.</p>
