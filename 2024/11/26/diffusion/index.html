@@ -253,7 +253,9 @@
 
 <p>The above figure, taken from a seminal diffusion model paper [2], illustrates the Markov chain process of a diffusion model. To understand the entire process, we can expand it into a joint probability distribution from the clean image $X_0$ to any time step $t$:</p>
 <p>$$<br>q(X_{1:T} \mid X_0) = \prod_{t=1}^T q(X_t \mid X_{t-1}) \tag{2}.<br>$$</p>
-<p>To simplify the model, one can derive $X_t$ directly from $X_0$ by introducing the parameter $\alpha_t = 1 - \beta_t$, defining: $\bar{\alpha}<em>t = \prod</em>{s=1}^t \alpha_s$. Thus, $X_t$ can be expressed as:</p>
+<p>To simplify the model, one can derive $X_t$ directly from $X_0$ by introducing the parameter $\alpha_t = 1 - \beta_t$, defining: </p>
+<p>$$<br>\bar{\alpha}<em>t = \prod</em>{s=1}^t \alpha_s.<br>$$</p>
+<p>Thus, $X_t$ can be expressed as:</p>
 <p>$$<br>q(X_t \mid X_0) = \mathcal{N}(X_t; \sqrt{\bar{\alpha}_t} X_0, (1 - \bar{\alpha}_t) \mathbf{I}) \tag{3}.<br>$$</p>
 <p>This formula indicates that, given the initial image $X_0$, the image at time step $t$, $X_t$, can be obtained by weighting $X_0$ with a time-dependent noise term.</p>
 <h2 id="2-2-Reverse-Denoising-Process"><a href="#2-2-Reverse-Denoising-Process" class="headerlink" title="2.2. Reverse Denoising Process"></a>2.2. Reverse Denoising Process</h2><p>In the reverse denoising process, we start with a fully noise-covered image $X_T$ and gradually denoise it to retrieve the original clean image $X_0$. This process is also known as the “generation process,” where we aim to learn a parameterised model $p_\theta(X_{t-1} \mid X_t)$ to denoise the image iteratively.</p>
@@ -265,12 +267,12 @@
 </div>
 
 <p>To derive the denoising mean $\mu_\theta(X_t, t)$, we can use the <strong>variational lower bound (VLB)</strong> to optimise the model’s parameters. Specifically, our objective is to maximise the likelihood of the model given the data, $p_\theta(X_0)$:</p>
-<p>$$\log p_\theta(X_0) \geq \mathbb{E}<em>{q} \left[ \log p_\theta(X_{0:T}) - \log q(X</em>{1:T} \mid X_0) \right] \tag{5}.$$</p>
+<p>$$<br>\log p_\theta(X_0) \geq \mathbb{E}<em>{q} \left[ \log p_\theta(X_{0:T}) - \log q(X</em>{1:T} \mid X_0) \right] \tag{5}.<br>$$</p>
 <p>By expanding the variational lower bound, we obtain the following loss function:</p>
-<p>$$\mathcal{L}<em>{\text{vlb}} = \mathbb{E}</em>{q} \left[ \sum_{t=2}^T \text{KL}(q(X_{t-1} \mid X_t, X_0) | p_\theta(X_{t-1} \mid X_t)) - \log p_\theta(X_0 \mid X_1) \right] \tag{6}.$$</p>
+<p>$$<br>\mathcal{L}<em>{\text{vlb}} = \mathbb{E}</em>{q} \left[ \sum_{t=2}^T \text{KL}(q(X_{t-1} \mid X_t, X_0) | p_\theta(X_{t-1} \mid X_t)) - \log p_\theta(X_0 \mid X_1) \right] \tag{6}.<br>$$</p>
 <p>The Kullback-Leibler (KL) divergence term in this loss function measures the difference between the model’s predicted distribution and the true distribution at each time step. By minimising this difference, the model learns how to progressively denoise, leading to the generation of high-quality images.</p>
 <h2 id="2-3-Noise-Prediction-and-Sampling-Process"><a href="#2-3-Noise-Prediction-and-Sampling-Process" class="headerlink" title="2.3. Noise Prediction and Sampling Process"></a>2.3. Noise Prediction and Sampling Process</h2><p>In the practical denoising process, we use a neural network $\epsilon_\theta(X_t, t)$ to predict the noise $\epsilon$ in the image. The sampling formula for the reverse process is given by:</p>
-<p>$$X_{t-1} = \frac{1}{\sqrt{\alpha_t}} \left( X_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon_\theta(X_t, t) \right) + \sqrt{\beta_t} \mathbf{z} \tag{7},$$<br>where $\mathbf{z}$ represents noise sampled from a standard normal distribution.</p>
+<p>$$<br>X_{t-1} = \frac{1}{\sqrt{\alpha_t}} \left( X_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon_\theta(X_t, t) \right) + \sqrt{\beta_t} \mathbf{z} \tag{7},<br>$$<br>where $\mathbf{z}$ represents noise sampled from a standard normal distribution.</p>
 <p>To further understand this equation, we can derive the denoising process as follows:</p>
 <ol>
 <li><p><strong>Noise Prediction</strong>: The model learns to predict the noise term $\epsilon_\theta(X_t, t)$ in the input image $X_t$, and uses the predicted noise to correct the image, gradually approaching a noiseless version.</p>
@@ -279,19 +281,19 @@
 </li>
 </ol>
 <h2 id="2-4-Time-Encoding-in-the-Denoising-Process"><a href="#2-4-Time-Encoding-in-the-Denoising-Process" class="headerlink" title="2.4. Time Encoding in the Denoising Process"></a>2.4. Time Encoding in the Denoising Process</h2><p>In diffusion models, <strong>time encoding</strong> is a crucial component that helps the model understand the current time step, thereby better utilising historical information in the denoising process. Time encoding is typically implemented using a combination of sine and cosine functions:</p>
-<p>$$\text{PE}(\tau, 2d_{i}) = \sin\left(\frac{\tau}{10000^{\frac{2d_{i}}{d}}}\right),<br>\quad<br>\text{PE}(\tau, 2d_{i+1}) = \cos\left(\frac{\tau}{10000^{\frac{2d_{i}}{d}}}\right) \tag{8}.$$</p>
+<p>$$<br>\text{PE}(\tau, 2d_{i}) = \sin\left(\frac{\tau}{10000^{\frac{2d_{i}}{d}}}\right),<br>\quad<br>\text{PE}(\tau, 2d_{i+1}) = \cos\left(\frac{\tau}{10000^{\frac{2d_{i}}{d}}}\right) \tag{8}.<br>$$</p>
 <p>This encoding scheme effectively captures periodic variations between time steps, allowing the model to maintain temporal consistency and coherence when generating sequential data, such as video frames.</p>
 <h1 id="3-Facial-Interaction-Generation-Project-Specific-Implementation"><a href="#3-Facial-Interaction-Generation-Project-Specific-Implementation" class="headerlink" title="3. Facial Interaction Generation (Project-Specific Implementation)"></a>3. Facial Interaction Generation (Project-Specific Implementation)</h1><p>The following section describes specific extensions implemented in our project, which may not be applicable to all diffusion models and interaction generation tasks but are unique to our approach.</p>
 <p>In facial interaction generation, diffusion models need to handle multiple characters within a video sequence while ensuring synchronisation between each character’s facial expressions and corresponding audio. To achieve this, we incorporated the following key modules into our diffusion model:</p>
 <p><strong>Reference Frame and Previous Frames</strong>: The image generated at each time step depends on a reference frame and several previous frames to ensure visual consistency in the generated video. Let $\mathcal{F}_t$ be the current noisy frame, and $\mathcal{F}_r$ be the reference frame. The generation process can then be expressed as:</p>
-<p>$$\mathcal{F}<em>{t-1} = f(\mathcal{F}</em>{t}, \mathcal{F}<em>r, \mathcal{F}</em>{t-1}, \mathcal{F}_{t-2}) + \epsilon \tag{9},$$<br>where $f$ is the learned denoising function, and $\epsilon$ is the noise term. The following image shows the 68 facial landmarks extracted in our project.</p>
+<p>$$<br>\mathcal{F}<em>{t-1} = f(\mathcal{F}</em>{t}, \mathcal{F}<em>r, \mathcal{F}</em>{t-1}, \mathcal{F}_{t-2}) + \epsilon \tag{9},<br>$$<br>where $f$ is the learned denoising function, and $\epsilon$ is the noise term. The following image shows the 68 facial landmarks extracted in our project.</p>
 <div style="text-align: center">
 <img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog5/landmarks.png"/>
 </div>
 
 <p><strong>Interactive Guidance Module (IGM)</strong>: To generate interactive videos, the IGM dynamically adjusts the generation parameters for different characters to ensure natural and synchronised interactions. This module optimises the generation process by comparing the dialogue content, facial expression synchronisation, and audio-video coherence between characters.</p>
 <p><strong>Loss Function Application</strong>: To ensure the quality of the generated results, multiple loss functions were introduced during the training of the diffusion model, including mean squared error (MSE) loss, lip-sync loss, and variational lower bound loss. The lip-sync loss is defined as:</p>
-<p>$$\mathcal{L}<em>{\text{lip}} = \sum</em>{t=1}^{T} \left| \text{Lip}(X_t) - \text{Audio}(t) \right|^2 \tag{10}.$$</p>
+<p>$$<br>\mathcal{L}<em>{\text{lip}} = \sum</em>{t=1}^{T} \left| \text{Lip}(X_t) - \text{Audio}(t) \right|^2 \tag{10}.<br>$$</p>
 <p>By minimising this loss, the model ensures that the lip movements in the generated video are consistent with the audio content, resulting in a more realistic video.</p>
 <h1 id="4-Conclusion-and-Future-Prospects"><a href="#4-Conclusion-and-Future-Prospects" class="headerlink" title="4. Conclusion and Future Prospects"></a>4. Conclusion and Future Prospects</h1><p>By delving into the mathematical principles and derivations of diffusion models, we can see their powerful capabilities in generating images and videos. Diffusion models operate by progressively adding and removing noise through forward diffusion and reverse denoising processes, eventually restoring high-quality images. Building on the idea presented in an ICLR 2025 submission [4], which first drew an analogy between diffusion models and evolutionary algorithms, there remains significant potential for further exploring the information contained within diffusion models.</p>
 <p>In the future, diffusion models are expected to play a greater role in generating multimodal content, particularly in areas such as virtual assistants, virtual social interactions, and remote education, which require interactive content generation. By combining them with large language models, diffusion models can better understand and respond to user input, generating more intelligent and personalised content. Moreover, these models hold promise for advancing research on agents and Markov chains.</p>
