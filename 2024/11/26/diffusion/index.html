@@ -243,24 +243,22 @@
         </header>
 
         <div class="post-content">
-            <h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>Diffusion models have emerged in recent years as a powerful approach for generating images and videos, offering significant advantages in temporal consistency and image quality [1]. This article provides a straightforward introduction to the core principles of diffusion models and explores their potential applications in facial interaction generation, with a focus on project-specific implementations.</p>
+            <h1 id="1-Foreword"><a href="#1-Foreword" class="headerlink" title="1. Foreword"></a>1. Foreword</h1><p>Diffusion models have emerged in recent years as a powerful approach for generating images and videos, offering significant advantages in temporal consistency and image quality [1]. This article provides a straightforward introduction to the core principles of diffusion models and explores their potential applications in facial interaction generation, with a focus on project-specific implementations.</p>
 <h1 id="2-Theoretical-Foundations-of-Diffusion-Models"><a href="#2-Theoretical-Foundations-of-Diffusion-Models" class="headerlink" title="2. Theoretical Foundations of Diffusion Models"></a>2. Theoretical Foundations of Diffusion Models</h1><p>A diffusion model consists of two main processes [1, 5]: <strong>the forward diffusion process</strong> and <strong>the reverse denoising process</strong>. Initially, the model adds noise incrementally to an image, transforming it into a completely random state; subsequently, the model denoises the image, restoring it to a clean state.</p>
 <h2 id="2-1-Forward-Diffusion-Process"><a href="#2-1-Forward-Diffusion-Process" class="headerlink" title="2.1. Forward Diffusion Process"></a>2.1. Forward Diffusion Process</h2><p>The forward diffusion process is a Markov chain that starts at time step $t=0$ and progressively adds noise to the image until, at the final time step $t=T$, the image is entirely covered in noise. The relationship between the image at time step $t$, denoted $X_t$, and the previous time step $X_{t-1}$ is given by:</p>
-<p>$$q(X_t \mid X_{t-1}) = \mathcal{N}(X_t; \sqrt{1 - \beta_t} X_{t-1}, \beta_t \mathbf{I}) \tag{1},$$<br>where $\mathcal{N}$ represents a normal distribution, $\beta_t$ is the amount of noise added at each time step, and $\mathbf{I}$ is the identity matrix.</p>
+<p>$$<br>q(X_t \mid X_{t-1}) = \mathcal{N}(X_t; \sqrt{1 - \beta_t} X_{t-1}, \beta_t \mathbf{I}) \tag{1},<br>$$<br>where $\mathcal{N}$ represents a normal distribution, $\beta_t$ is the amount of noise added at each time step, and $\mathbf{I}$ is the identity matrix.</p>
 <div style="text-align: center">
 <img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog5/diffusionprocess.png"/>
 </div>
 
 <p>The above figure, taken from a seminal diffusion model paper [2], illustrates the Markov chain process of a diffusion model. To understand the entire process, we can expand it into a joint probability distribution from the clean image $X_0$ to any time step $t$:</p>
-<p>$$q(X_{1:T} \mid X_0) = \prod_{t=1}^T q(X_t \mid X_{t-1}) \tag{2}.$$</p>
-<p>To simplify the model, one can derive $X_t$ directly from $X_0$ by introducing the parameter $\alpha_t = 1 - \beta_t$, defining:</p>
-<p>$$\bar{\alpha}<em>t = \prod</em>{s=1}^t \alpha_s.$$</p>
-<p>Thus, $X_t$ can be expressed as:</p>
-<p>$$q(X_t \mid X_0) = \mathcal{N}(X_t; \sqrt{\bar{\alpha}_t} X_0, (1 - \bar{\alpha}_t) \mathbf{I}) \tag{3}.$$</p>
+<p>$$<br>q(X_{1:T} \mid X_0) = \prod_{t=1}^T q(X_t \mid X_{t-1}) \tag{2}.<br>$$</p>
+<p>To simplify the model, one can derive $X_t$ directly from $X_0$ by introducing the parameter $\alpha_t = 1 - \beta_t$, defining: $\bar{\alpha}<em>t = \prod</em>{s=1}^t \alpha_s$. Thus, $X_t$ can be expressed as:</p>
+<p>$$<br>q(X_t \mid X_0) = \mathcal{N}(X_t; \sqrt{\bar{\alpha}_t} X_0, (1 - \bar{\alpha}_t) \mathbf{I}) \tag{3}.<br>$$</p>
 <p>This formula indicates that, given the initial image $X_0$, the image at time step $t$, $X_t$, can be obtained by weighting $X_0$ with a time-dependent noise term.</p>
 <h2 id="2-2-Reverse-Denoising-Process"><a href="#2-2-Reverse-Denoising-Process" class="headerlink" title="2.2. Reverse Denoising Process"></a>2.2. Reverse Denoising Process</h2><p>In the reverse denoising process, we start with a fully noise-covered image $X_T$ and gradually denoise it to retrieve the original clean image $X_0$. This process is also known as the “generation process,” where we aim to learn a parameterised model $p_\theta(X_{t-1} \mid X_t)$ to denoise the image iteratively.</p>
 <p>The fundamental equation of the reverse process is:</p>
-<p>$$p_\theta(X_{t-1} \mid X_t) = \mathcal{N}(X_{t-1}; \mu_\theta(X_t, t), \Sigma_\theta(X_t, t)) \tag{4}.$$</p>
+<p>$$<br>p_\theta(X_{t-1} \mid X_t) = \mathcal{N}(X_{t-1}; \mu_\theta(X_t, t), \Sigma_\theta(X_t, t)) \tag{4}.<br>$$</p>
 <p>Here, $\mu_\theta(X_t, t)$ is the denoising mean predicted by a neural network, such as the U-Net depicted below [3], and $\Sigma_\theta(X_t, t)$ is the denoising variance. In practical implementations, $\Sigma_\theta(X_t, t)$ is often assumed to be fixed to simplify the model’s learning process.</p>
 <div style="text-align: center">
 <img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog5/unet.png"/>
