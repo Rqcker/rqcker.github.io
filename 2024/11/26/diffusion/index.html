@@ -265,12 +265,9 @@
 </div>
 
 <p>To derive the denoising mean $\mu_\theta(X_t, t)$, we can use the <strong>variational lower bound (VLB)</strong> to optimise the model’s parameters. Specifically, our objective is to maximise the likelihood of the model given the data, $p_\theta(X_0)$:</p>
-<p>$$<br>\log p_\theta(X_0) \geq \mathbb{E}<em>{q} \left[ \log p_\theta(X_{0:T}) - \log q(X</em>{1:T} \mid X_0) \right] \tag{5}.<br>$$</p>
+<p>$$<br>\log p_\theta(X_0) \geq \mathbb{E}<em>{q} \left(\log p_\theta(X_{0:T}) - \log q(X</em>{1:T} \mid X_0) \right) \tag{5}.<br>$$</p>
 <p>By expanding the variational lower bound, we obtain the following loss function:</p>
-<!-- $$
-\mathcal{L}_{\text{vlb}} = \mathbb{E}_{q} \left[ \sum_{t=2}^T \text{KL}(q(X_{t-1} \mid X_t, X_0) \| p_\theta(X_{t-1} \mid X_t)) - \log p_\theta(X_0 \mid X_1) \right] \tag{6}.
-$$ -->
-
+<p>$$<br>\mathcal{L}<em>{\text{vlb}} = \mathbb{E}</em>{q} \left[ \sum_{t=2}^T \text{KL}(q(X_{t-1} \mid X_t, X_0) | p_\theta(X_{t-1} \mid X_t)) - \log p_\theta(X_0 \mid X_1) \right] \tag{6}.<br>$$</p>
 <p>The Kullback-Leibler (KL) divergence term in this loss function measures the difference between the model’s predicted distribution and the true distribution at each time step. By minimising this difference, the model learns how to progressively denoise, leading to the generation of high-quality images.</p>
 <h2 id="2-3-Noise-Prediction-and-Sampling-Process"><a href="#2-3-Noise-Prediction-and-Sampling-Process" class="headerlink" title="2.3. Noise Prediction and Sampling Process"></a>2.3. Noise Prediction and Sampling Process</h2><p>In the practical denoising process, we use a neural network $\epsilon_\theta(X_t, t)$ to predict the noise $\epsilon$ in the image. The sampling formula for the reverse process is given by:</p>
 <p>$$<br>X_{t-1} = \frac{1}{\sqrt{\alpha_t}} \left( X_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon_\theta(X_t, t) \right) + \sqrt{\beta_t} \mathbf{z} \tag{7},<br>$$<br>where $\mathbf{z}$ represents noise sampled from a standard normal distribution.</p>
