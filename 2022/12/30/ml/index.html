@@ -204,63 +204,62 @@
         </header>
 
         <div class="post-content">
-            <h1 id="1-Foreword"><a href="#1-Foreword" class="headerlink" title="1. Foreword"></a>1. Foreword</h1><p>This article is intended to be a brief introduction to some of the knowledge points about data mining and machine learning. The whole article will start with a brief introduction to the types of machine learning, the workflow of machine learning, examples of data and types of attributes. I hope this article will be useful for some people who want to learn about machine learning and get started with data mining. This will be a concise article.</p>
-<h1 id="2-Four-types-of-machine-learning"><a href="#2-Four-types-of-machine-learning" class="headerlink" title="2. Four types of machine learning"></a>2. Four types of machine learning</h1><ul>
-<li>Classification: Given a set of classified examples, learn to classify a new example</li>
-<li>Association: finding any interesting combinations of associated properties between attributes or combinations of attributes </li>
-<li>Clustering: grouping similar examples together</li>
-<li>Numerical prediction: instead of classifying, predict a numerical value</li>
+            <h1 id="1-Foreword"><a href="#1-Foreword" class="headerlink" title="1. Foreword"></a>1. Foreword</h1><p>This article serves as a brief introduction to key concepts in data mining and machine learning. It begins with an overview of the types of machine learning, the workflow of machine learning, and examples of data and attribute types. This concise introduction aims to be helpful for anyone looking to learn about machine learning and begin exploring data mining.</p>
+<h1 id="2-Four-Types-of-Machine-Learning"><a href="#2-Four-Types-of-Machine-Learning" class="headerlink" title="2. Four Types of Machine Learning"></a>2. Four Types of Machine Learning</h1><ul>
+<li><strong>Classification</strong>: Given a set of labelled examples, the goal is to learn how to classify new instances.</li>
+<li><strong>Association</strong>: Identifying interesting relationships or associations between attributes or combinations of attributes.</li>
+<li><strong>Clustering</strong>: Grouping similar examples together based on shared features.</li>
+<li><strong>Numerical Prediction</strong>: Predicting a numerical value instead of a category.</li>
 </ul>
-<h1 id="3-Workflow-of-machine-learning"><a href="#3-Workflow-of-machine-learning" class="headerlink" title="3. Workflow of machine learning"></a>3. Workflow of machine learning</h1><p>Machine learning will start by acquiring the data, pre-processing it to ensure that it is clean, by purifying the data set and removing any data that is not useful. The processed data is then used to create a model and the created model is tested until the target conditions are met and then the model is deployed, which is a traditional machine learning process. Most machine learning workflows nowadays will have a step to optimise the model, by tweaking hyperparameters etc. Many articles on the internet are not written in a concise and easy to understand way, so here I have used a concise machine learning flow diagram that my teacher Ekaterina Komendantskaya has demonstrated as follows.</p>
+<h1 id="3-Workflow-of-Machine-Learning"><a href="#3-Workflow-of-Machine-Learning" class="headerlink" title="3. Workflow of Machine Learning"></a>3. Workflow of Machine Learning</h1><p>A typical machine learning workflow begins with acquiring data, followed by pre-processing to ensure the dataset is clean by filtering out unnecessary information. The processed data is then used to train a model, which is tested iteratively until desired performance is achieved. Finally, the model is deployed. This is the traditional machine learning process. Today, most machine learning workflows also include steps to optimise the model, such as tuning hyperparameters. Many articles present these workflows in a complex manner, but I’ve included a simple flow diagram based on what my teacher, Ekaterina Komendantskaya, has demonstrated:</p>
 <div style="text-align: center">
 <img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog3/mlflow.png"/>
 </div>
 
-<h1 id="4-Description-of-the-data"><a href="#4-Description-of-the-data" class="headerlink" title="4. Description of the data"></a>4. Description of the data</h1><h2 id="1-Instance"><a href="#1-Instance" class="headerlink" title="(1).Instance"></a>(1).Instance</h2><ul>
-<li>Simple examples - data rows</li>
-<li>Input to the learning programme = set of examples (data set)</li>
-<li>Represented as a single relationship, or a flat file</li>
-<li>Inputs are in a rather limited form</li>
-<li>No relationships between instances  </li>
+<h1 id="4-Description-of-the-Data"><a href="#4-Description-of-the-Data" class="headerlink" title="4. Description of the Data"></a>4. Description of the Data</h1><h2 id="1-Instances"><a href="#1-Instances" class="headerlink" title="(1) Instances"></a>(1) Instances</h2><ul>
+<li>Simple examples, represented by rows of data.</li>
+<li>Input to the learning algorithm = set of examples (dataset).</li>
+<li>Represented as a single relationship or a flat file.</li>
+<li>Inputs are generally in a limited form.</li>
+<li>There are no relationships between individual instances.</li>
 </ul>
-<h2 id="2-Attributes"><a href="#2-Attributes" class="headerlink" title="(2). Attributes"></a>(2). Attributes</h2><ul>
-<li>Each instance is described by a fixed set of predefined attributes</li>
-<li>The number of attributes may vary</li>
-<li>The existence of one attribute may depend on the value of another  </li>
+<h2 id="2-Attributes"><a href="#2-Attributes" class="headerlink" title="(2) Attributes"></a>(2) Attributes</h2><ul>
+<li>Each instance is described by a fixed set of predefined attributes.</li>
+<li>The number of attributes may vary.</li>
+<li>The existence of one attribute can depend on the value of another.</li>
 </ul>
-<p>Often, we are interested in predicting the value of a particular attribute. This is because it is determined by the values of other attributes. What we want to predict is called the <strong>class</strong> or the <strong>target</strong>.</p>
-<p>Addendum: In general for two-dimensional datasets, each row is an instance and each column is an attribute.</p>
-<h1 id="5-Attribute-value-types"><a href="#5-Attribute-value-types" class="headerlink" title="5. Attribute value types"></a>5. Attribute value types</h1><p>Four common types of attribute values will be described here.</p>
-<h2 id="1-Nominal"><a href="#1-Nominal" class="headerlink" title="(1). Nominal"></a>(1). Nominal</h2><ul>
-<li>Nominal comes from the Latin name</li>
-<li>Values are different symbols</li>
-<li>Values are only used as labels or names</li>
-<li>There is no implied relationship between nominal values</li>
-<li>No sorting or distance measurement</li>
-<li>Only equality tests can be performed</li>
-<li>Also known as categorical</li>
+<p>Often, we are interested in predicting the value of a particular attribute, as it is influenced by the values of other attributes. The attribute we want to predict is called the <strong>class</strong> or <strong>target</strong>.</p>
+<p>Addendum: In general, for two-dimensional datasets, each row represents an instance, and each column represents an attribute.</p>
+<h1 id="5-Types-of-Attribute-Values"><a href="#5-Types-of-Attribute-Values" class="headerlink" title="5. Types of Attribute Values"></a>5. Types of Attribute Values</h1><p>The four common types of attribute values are described below.</p>
+<h2 id="1-Nominal"><a href="#1-Nominal" class="headerlink" title="(1) Nominal"></a>(1) Nominal</h2><ul>
+<li>The term “nominal” is derived from the Latin word for “name.”</li>
+<li>Values are distinct symbols, used solely as labels or names.</li>
+<li>No implied relationship between nominal values.</li>
+<li>Sorting or distance measurement is not applicable.</li>
+<li>Only equality comparisons are possible.</li>
+<li>Also referred to as categorical.</li>
 </ul>
-<p>For example, colour (red, yellow…) , Country (UK, USA…)</p>
-<h2 id="2-Ordinal"><a href="#2-Ordinal" class="headerlink" title="(2). Ordinal"></a>(2). Ordinal</h2><ul>
-<li>The values are sequential</li>
-<li>There is no definite distance between the values</li>
-<li>Addition and subtraction cannot be used</li>
+<p><strong>Example</strong>: Colour (red, yellow), Country (UK, USA).</p>
+<h2 id="2-Ordinal"><a href="#2-Ordinal" class="headerlink" title="(2) Ordinal"></a>(2) Ordinal</h2><ul>
+<li>Values are sequentially ordered.</li>
+<li>No precise distance between values.</li>
+<li>Addition and subtraction are not applicable.</li>
 </ul>
-<p>For example, temperature can be expressed in terms of hot, fit and cold</p>
-<h2 id="3-Interval"><a href="#3-Interval" class="headerlink" title="(3). Interval"></a>(3). Interval</h2><ul>
-<li>is ordered and also in fixed, equal units</li>
-<li>Sum or product is meaningless</li>
-<li>Zero is not defined</li>
+<p><strong>Example</strong>: Temperature (hot, mild, cold).</p>
+<h2 id="3-Interval"><a href="#3-Interval" class="headerlink" title="(3) Interval"></a>(3) Interval</h2><ul>
+<li>Values are ordered and measured in equal units.</li>
+<li>The sum or product of values is meaningless.</li>
+<li>Zero is not an absolute reference point.</li>
 </ul>
-<p>For example, temperature in degrees Fahrenheit, A.D. chronology</p>
-<h2 id="4-Ratio"><a href="#4-Ratio" class="headerlink" title="(4). Ratio"></a>(4). Ratio</h2><ul>
-<li>Defines a quantity with zero points.</li>
-<li>Ratio is treated as a real number</li>
-<li>All mathematical operations are allowed</li>
-<li>Interval values can be subtracted to obtain a Ratio</li>
+<p><strong>Example</strong>: Temperature in degrees Fahrenheit, years in the Gregorian calendar.</p>
+<h2 id="4-Ratio"><a href="#4-Ratio" class="headerlink" title="(4) Ratio"></a>(4) Ratio</h2><ul>
+<li>Defines quantities with a true zero point.</li>
+<li>Ratio values are treated as real numbers.</li>
+<li>All mathematical operations are allowed.</li>
+<li>Interval values can be subtracted to obtain a ratio.</li>
 </ul>
-<p>For example, the distance between objects</p>
-<p><strong>Copyright Notice</strong><br>This article is the original content of <strong>Junhao</strong> except the referenced content below, and the final interpretation right belongs to the original author. If there is any infringement, please contact to delete. Without my authorization, please do not reprint it privately.</p>
+<p><strong>Example</strong>: Distance between objects.</p>
+<p><strong>Copyright Notice</strong><br>This article, except for the referenced content below, is the original work of <strong>Junhao</strong>. The author retains the exclusive rights to its final interpretation. If there are any issues regarding copyright infringement, please contact me for removal. Reproduction or distribution of this content without my explicit permission is prohibited.</p>
 <h1 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h1><p>[1]. <strong>Data Mining Book</strong> <a target="_blank" rel="noopener" href="https://www.cs.waikato.ac.nz/ml/weka/book.html">https://www.cs.waikato.ac.nz/ml/weka/book.html</a></p>
 
         </div>
