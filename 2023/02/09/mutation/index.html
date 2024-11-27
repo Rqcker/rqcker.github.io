@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="default">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Junhao">
+
+
+
+    <meta name="description" content="Junhao Personal Webpages">
+
+
+
+<title>Understanding Virus Mutation from the Traveling Salesman Problem and Inspiration from Genetic Algorithms | Junhao Song</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+    <script src="/js/404/bodymovin.js"></script>
+    
+    <script src="/js/404/data.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Junhao&#39;s Webpages</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/activities">Activities</a>
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/projects">Projects</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Junhao&#39;s Webpages</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/activities">Activities</a>
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/projects">Projects</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Understanding Virus Mutation from the Traveling Salesman Problem and Inspiration from Genetic Algorithms</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Junhao</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">9th February, 2023&nbsp;&nbsp;20:30:50</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Evolutionary-Computing/">Evolutionary Computing</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="1-Foreword"><a href="#1-Foreword" class="headerlink" title="1. Foreword"></a>1. Foreword</h1><p>The Covid-19 virus has been spreading around the world for three years, yet mutated strains of the virus are still raging around the world. Compared with when the virus first appeared three years ago, the infectivity of this virus has been greatly enhanced, but the lethality and pathogenicity have both decreased. According to the law of viral genetics, stronger infectivity and lower pathogenicity are more conducive to the spread of viruses. This year is not necessarily the end of the mutation of the Covid-19 virus, and new mutant viruses will still appear in human society in the future. In fact, it’s not just viruses that mutate. Variations also occur in higher organisms such as bacteria, fungi, plants and animals. Why does life mutate? There is also a mathematical principle behind this biological problem. This article will gradually explain the important computer significance of heredity and variation in the biological world from the traveling salesman problem (TSP) based on Yongle Li’s inspiration and explanation.</p>
+<h1 id="2-Traveling-Salesman-Problem-TSP"><a href="#2-Traveling-Salesman-Problem-TSP" class="headerlink" title="2. Traveling Salesman Problem (TSP)"></a>2. Traveling Salesman Problem (TSP)</h1><p>The traveling salesman problem (TSP) is a well-known combinatorial optimization problem in computer science and operations research. The goal of TSP is to find the shortest route that visits a given set of cities and returns to the starting city, while visiting each city only once. TSP has many practical applications, including vehicle routing planning, logistics, and facility localization.</p>
+<p>For example: Now there are four cities [A, B, C, D], A to B is assumed to be 3 distance units, B to C is 7 distance units, A to D is 5 time units, etc… To traverse all cities at once, and each city only once. What strategy should I choose to make the distance the shortest? </p>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/abcd.png"/>
+</div>
+
+<p>TSP is NP-hard, which means that the time complexity of finding the optimal solution grows rapidly with the number of cities. So finding the optimal solution for TSP can be a challenging and time-consuming task, especially for large instances. Two commonly used methods to solve TSP are brute force search algorithm and greedy algorithm.</p>
+<h2 id="1-Brute-force-algorithm"><a href="#1-Brute-force-algorithm" class="headerlink" title="(1). Brute force algorithm"></a>(1). Brute force algorithm</h2><p>The brute force search algorithm, also known as brute force or exhaustive search, is a method of solving TSP by generating all possible combinations of cities and selecting the shortest one.</p>
+<p>The brute force search algorithm can find the optimal solution by listing all the routes and then comparing them. For example, in the example mentioned in the previous figure, the algorithm will list all the routes (assuming that the search starts from city A):</p>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/map.png"/>
+</div>
+
+<p>Soon, six paths are obtained. But the three strategies are 35, 39, and 28 respectively (the distance unit and direction are irrelevant). According to this method, every situation can be searched violently. This is a case where there are few cities (nodes).</p>
+<p>Now suppose there are <code>n</code> cities, how many strategies should there be? Now that we have <code>n</code> cities, we have <code>(n-1)</code> options for the first time starting from a city. The second time there are <code>(n-2)</code> choices…. until the last time, there are <code>1</code> choices left. And because the strategy of one positive and one negative is the same. So divide its factorial by <code>2</code> :</p>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/n.png"/>
+</div>
+
+<p>You can take several numbers for n to test, and quickly find that the time complexity of this method is exponential, which is almost infeasible for large instances of TSP. This algorithm is accurate, but very slow. Because the search complexity is too high, as long as the problem is slightly more complicated, the optimal solution cannot be obtained.</p>
+<h2 id="2-Greedy-algorithm"><a href="#2-Greedy-algorithm" class="headerlink" title="(2). Greedy algorithm"></a>(2). Greedy algorithm</h2><p>The greedy algorithm is a heuristic method that starts with an initial city and selects the nearest unvisited city as the next move. The algorithm continues until all cities have been visited and returns the starting city. The greedy algorithm will choose the local optimal route for traversal every time. Every step is optimal every time. </p>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/abdca.png"/>
+</div>
+
+<p>For example, as shown above. The greedy algorithm is looking for the smallest distance unit every time, but the overall distance is the highest. The visible local optimum does not necessarily represent the global optimum. Although a greedy algorithm can provide good solutions for small instances of TSP, it cannot guarantee optimal solutions for large instances. A greedy algorithm finds a solution quickly, but not accurately. Can humans find an algorithm that combines a brute force search algorithm with a greedy algorithm? The optimal solution can be found quickly and accurately. Soon, the evolution of humans imitating creatures found <code>genetic algorithm</code>.</p>
+<h1 id="3-Genetic-Variation"><a href="#3-Genetic-Variation" class="headerlink" title="3. Genetic Variation"></a>3. Genetic Variation</h1><p>Genetic variation is a key concept in <code>evolutionary algorithm</code> (including genetic algorithms). It refers to the random variation in the characteristics of individuals in a population over generations. This variation is necessary for the evolution of the population and adaptation to its environment.</p>
+<p>The theory of natural selection from Charles Darwin states that biological species evolve over time through a process of selection.</p>
+<blockquote>
+<p>This selection occurs because individuals in a population will have varying degrees of success in reproducing and passing their genes on to the next generation. Individuals that are better adapted are more likely to survive and reproduce, while those less adapted will struggle to survive and have fewer offspring. Over time, these small changes accumulate, causing the overall characteristics of the population to change.</p>
+</blockquote>
+<p>The theory is often referred to as “survival of the fittest” because it is those individuals that are best suited to their environment that are more likely to survive and pass their genes on to the next generation.</p>
+<p>At the heart of Darwin’s theory of natural selection is the idea that species evolve over time through a process of selection based on changes in characteristics and the ability of individuals to survive and reproduce in their environment.</p>
+<blockquote>
+<p>Gregor Mendel is considered the father of modern genetics. He performed a series of experiments on pea plants and discovered the fundamentals of inheritance, including the fact that traits are passed from one generation to the next through segregation and recombination of genes. He found that genes exist in pairs, and that each parent contributes one gene to the offspring. Thomas Hunter Morgan was an American biologist and geneticist who conducted groundbreaking research on the role of chromosomes in heredity. He studied the fruit fly Drosophila melanogaster and found that genes are located on specific chromosomes and mutations in these genes lead to changes in the organism’s traits. He also discovered that genetic recombination occurs when chromosomes from different individuals come together and exchange genetic material. This process allows the generation of new combinations of genes, leading to the evolution of new traits and the creation of new species.</p>
+</blockquote>
+<p>In conclusion, Mendel’s and Morgan’s research on genetic recombination is crucial to the fundamentals of inheritance and the role of genes in the inheritance of traits. The findings provide a greater understanding of how organisms evolve over time and how genetic mutations play a role in the development of new species.</p>
+<p>Here we will talk about gene recombination (crossover) and gene variation, and will cite a lot of biological knowledge to explain:</p>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/bio.png"/>
+</div>
+
+
+<blockquote>
+<p>The process of genetic recombination: it is the exchange of genetic material between non-sister chromatids of homologous chromosomes. Homologous chromosomes line up in pairs, with genes along their entire length, forming a configuration with four chromatids, called a tetrad body. At this point, the chromatids are in close proximity to each other and some material from the two chromatids exchanges chromosomes, i.e. material breaks off and reattaches at the same position on the homologous chromosome. This exchange of genetic material can occur within the same pair Homologous chromosomes multiple times, creating a unique combination of genes. The process of genetic recombination: it is the exchange of genetic material between non-sister chromatids of homologous chromosomes. Homologous chromosomes line up in pairs, with genes along their entire length, forming a An arrangement of four chromatids is called a tetrad. At this point, the chromatids are in close proximity to each other and some material from the two chromatids exchanges chromosomes, i.e. material breaks off and reattaches at the same position on the homologous chromosome. This exchange of genetic material can occur within the same pair Multiple homologous chromosomes create unique genetic combinations.<br>Image Reference Biology LibreTexts. (2018). 7.6: Genetic Variation. [online]</p>
+</blockquote>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/ga.png"/>
+</div>
+
+<p>At this stage, the tetrad moves to the metaphase kinetochore facing the plate of the opposite pole. Homologous pairs are randomly oriented at the equatorial plate. This event is the second mechanism by which variation is introduced into gametes or spores. Each cell undergoes meiosis and the arrangement of the tetrads is different. The amount of variation depends on the number of chromosomes that make up a set. There are two possibilities for positioning mid-plate. Therefore, the number of possible alignments is equal to 2n, where n is the number of chromosomes in each set. Given these two mechanisms, it is unlikely that any two haploid-producing meiotic cells will have the same genetic composition.</p>
+<blockquote>
+<p>Meiosis I ensures the random, independent assortment of unique gametes during metaphase I can be demonstrated by considering cells with a set of two chromosomes (n = 2). In this case, there are two possible arrangements in the equatorial plane of metaphase I. The total number of possible different gametes is 2n, where n is equal to the number of chromosomes in a set. In this example, the gametes have four possible genetic combinations. With n = 23 in a human cell, there are over 8 million possible combinations of paternal and maternal chromosomes.<br>Image Reference Biology LibreTexts. (2018). 7.6: Genetic Variation. [online]</p>
+</blockquote>
+<p>The above explanation explains the process and principle of genetic variation from a molecular point of view, mainly based on the separation, combination and replacement of genes. “The same is true in nature. The original world, the original universe, the original life and the earth. After continuous genetic variation and natural selection, today’s rich and colorful world has emerged.”</p>
+<h1 id="4-An-Overview-of-Genetic-Algorithms-GA"><a href="#4-An-Overview-of-Genetic-Algorithms-GA" class="headerlink" title="4. An Overview of Genetic Algorithms (GA)"></a>4. An Overview of Genetic Algorithms (GA)</h1><p>Genetic Algorithms (GA) are computer simulations of natural selection and evolution processes used to solve optimization problems. The algorithm works by mimicking the way organisms evolve through generations through the process of mutation, selection and recombination. GA is an evolutionary algorithm that uses the principles of natural selection and genetics to search for the best solution to a problem. In GA, a population of candidate solutions evolves over multiple generations through a process of selection, crossover, and mutation.</p>
+<p>A genetic algorithm starts with a population of randomly generated individuals, each individual representing a possible solution to an optimization problem. These individuals are then evaluated against a fitness function to determine each individual’s ability to solve problems. Individuals with the highest fitness are then selected for breeding, and their genetic material is recombined to produce new offspring. This process is repeated for several generations, with each iteration producing a new population of individuals with higher fitness. </p>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/gaflow.png"/>
+</div> 
+
+<p>As shown in the figure above, the basic process of the genetic algorithm is to initialize the entire population first, and then calculate the fitness of each individual in the population. The population is then processed for genetic variation. Then recalculate the fitness of each individual, and repeat the subsequent behavior until the condition is met.</p>
+<blockquote>
+<p>In the field of artificial intelligence, genetic algorithms have been used to create agents that can learn to play games, solve puzzles, and perform other tasks. For example, genetic algorithms have been used to train neural networks, which are mathematical models that can learn to recognize patterns in data. Another application of genetic algorithms is in the field of machine learning, where they can be used to optimize the parameters of algorithms such as decision trees, support vector machines, and neural networks. By using genetic algorithms, machine learning algorithms can learn from data in an efficient and automated manner without manual tuning of parameters. In finance, genetic algorithms have been used to optimize investment portfolios, formulate trading strategies, and optimize risk management. For example, genetic algorithms can be used to find the optimal portfolio of assets to maximize returns while minimizing risk. Finally, genetic algorithms are also used in various engineering fields such as aerodynamics, structural engineering, and electrical engineering. For example, genetic algorithms have been used to optimize the design of aircraft wings, bridges and electrical circuits.</p>
+</blockquote>
+<p>One of the main advantages of using genetic algorithms is that they can find globally optimal solutions, even in complex and highly nonlinear problems where traditional optimization techniques may fail. This makes them powerful tools for solving a wide range of optimization problems, such as scheduling, resource allocation, and route optimization.</p>
+<h1 id="5-Application-of-Genetic-Algorithm-on-TSP"><a href="#5-Application-of-Genetic-Algorithm-on-TSP" class="headerlink" title="5. Application of Genetic Algorithm on TSP"></a>5. Application of Genetic Algorithm on TSP</h1><h2 id="1-Ideas-and-principles"><a href="#1-Ideas-and-principles" class="headerlink" title="(1). Ideas and principles"></a>(1). Ideas and principles</h2><p>The application of GA to TSP involves representing routes between cities as chromosomes, with each city represented by a gene. The fitness of candidate solutions is evaluated based on the total length of the path. Then the most suitable individuals in the population are selected for breeding, and their genetic information is cross-combined to produce offspring. Finally, mutation is applied to introduce random variation in the population.</p>
+<p>In the context of TSP, GA has been shown to provide good results for small to medium instances. However, it can be computationally expensive for large instances, and the choice of parameters such as population size and mutation rate can greatly affect the performance of the algorithm.</p>
+<p>For example, let’s say there are 6 cities in total. There is a traveling salesman who wants to go to 6 cities. There should be 60 algorithms (5!/2==60) in the 6 cities. As long as you traverse these 60 types, you can find the best way. But I don’t want to do that right now. We want to use this genetic algorithm: we can first set up a population, for example, set up 4 individuals first. These 4 individuals are actually 4 paths.</p>
+<p> <code>S1=[1, 2, 3, 4, 5, 6]</code>, will return to 1 in the end. The second path is 132654. The third path is <code>S3 = [1, 4, 2, 6, 3, 5]</code>, and the fourth path is, for example, 162534…</p>
+<p>We randomly set these paths, just like the primitive life in the world. Then we have to calculate its individual fitness. What do we want to investigate? We want to investigate which road is the shortest and which road is the cheapest. Then we list the price. For example, the price of the first road is 10, the total fare of the second road is 20, the total fare of the third road is 20, and the total fare of the fourth road is 50. We look like the first way is the cheapest, but we are not sure if it is the best. So can we improve it and find something better?</p>
+<p>We look for its adaptability, which means the lower the price, the more adaptable it is. So we can write this fitness as <code>f= 1/d</code>, we call it fitness <code>1/d</code>. The lower the price, the higher the adaptability. The first route fitness should be 0.1, the second fitness 0.05, and the third fitness 0.05. The fourth fitness is 0.02. Or the first way is the best.</p>
+<p>What’s the next step after finding the fitness? According to the laws of genetics, those who adapt to nature are more likely to be inherited, and are more likely to have the next generation. So we say that the higher the fitness, the more likely it will be inherited. Let’s just let it be inherited according to probability. How to calculate the probability of this inheritance? We can use the fitness of each path and divide it by the sum of all fitness. This represents your fitness as a proportion of the population. The higher the ratio, the more likely you are to inherit it. How about explaining this problem from a probabilistic point of view?</p>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog4/p.png"/>
+</div> 
+
+
+<p>As shown above, draw a disk and mark some areas on the disk. For example, the probability of f₁ is the largest and the fitness is the highest. Then its area is correspondingly the largest. The areas of f₂ and f₃ are smaller, so their area on this plate will also be smaller. Then f₂ and f₃, this f₄ is the smallest. So it has the smallest area on this plate, and then we use a pointer and turn the pointer. Let the pointer rotate on this plate, and when it stops, it depends on who it points to, and whoever it points to is to choose who to inherit. Therefore, the higher the fitness, the larger the proportion, and the more suitable for the natural environment. more likely to be selected. Of course this is not 100%.</p>
+<p>Let’s say, I chose S₁ when I turned for the first time. Then I selected S₁. I turned around again for the second time, and I selected s₂, and after the selection, I entered the next link.</p>
+<p>I need to let it perform mutation swaps, and there are two types of mutation swaps. The first type we can use is cross mutation, that is, S₁ and S₂ already exist. Equivalent to its DNA fragment, we can truncate it somewhere in the middle. Then let it mimic Morgan’s gene swap to swap segments. After the replacement, this S₁’ becomes 123654. Then what does S₂ become? 132456. This is cross mutation. And we must at least ensure that there are as many offspring as parents, otherwise there will be no samples after several generations. Let’s say I spin two more times and we pick S₁ and S₄. Then we perform cross-mutation to find new S₃’ and S₄’.</p>
+<p>After the replacement, our next step is to mutate, which is to imitate the variation of biological DNA. For example, say this S₁’, we can change the order of this 365. S₁’’ becomes <code>125634</code>, which is to change the order of the three 365. This is a mutation method, and there are other mutation methods. For example, I can also exchange two numbers. For example, if we exchange 3 and 6, S₂’’ is equal to <code>162453</code>. This is also a way.</p>
+<p>This is why we first selected an excellent parent, and then we let her give birth to offspring for a little variation. The next step is to recalculate the individual fitness, what is the price of these offspring I get? And what is its fitness. Then enter the roulette again to iterate again, as long as the number of populations set at the beginning is large enough and the number of iterations is large enough. You should be able to find a solution that is close to the optimal solution.</p>
+<p>Overall, the traveling salesman problem is a challenging optimization problem with many practical applications. Brute force search algorithm and greedy algorithm are two common methods to solve TSP, but they may not be suitable for large instances. Genetic algorithms are a promising approach that uses principles of natural selection and genetics to search for optimal solutions, but it can be computationally expensive for large instances of TSP.</p>
+<h2 id="2-Code-implementation"><a href="#2-Code-implementation" class="headerlink" title="(2). Code implementation"></a>(2). Code implementation</h2><p>A random population of potential problem solutions is first generated, and this population is iteratively evolved by applying genetic operators such as mutation and crossover until an optimal solution is found. The code below is from the ChatGPT build.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tsp_fitness</span>(<span class="params">route, distance_matrix</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Calculates the total distance of a given route using the distance matrix</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    total_distance = <span class="number">0</span></span><br><span class="line">    route_length = <span class="built_in">len</span>(route)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(route_length - <span class="number">1</span>):</span><br><span class="line">        total_distance += distance_matrix[route[i]][route[i + <span class="number">1</span>]]</span><br><span class="line">    <span class="keyword">return</span> total_distance</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_random_route</span>(<span class="params">num_cities</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Generates a random route</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    route = <span class="built_in">list</span>(<span class="built_in">range</span>(num_cities))</span><br><span class="line">    random.shuffle(route)</span><br><span class="line">    <span class="keyword">return</span> route</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_initial_population</span>(<span class="params">num_cities, population_size</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Generates the initial population of routes</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    population = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(population_size):</span><br><span class="line">        population.append(generate_random_route(num_cities))</span><br><span class="line">    <span class="keyword">return</span> population</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mutate_route</span>(<span class="params">route</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Mutates a route by swapping two random cities</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    i, j = <span class="built_in">sorted</span>(random.sample(<span class="built_in">range</span>(<span class="built_in">len</span>(route)), <span class="number">2</span>))</span><br><span class="line">    route[i], route[j] = route[j], route[i]</span><br><span class="line">    <span class="keyword">return</span> route</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">crossover_routes</span>(<span class="params">route1, route2</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Crosses over two routes to generate a new route</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    i, j = <span class="built_in">sorted</span>(random.sample(<span class="built_in">range</span>(<span class="built_in">len</span>(route1)), <span class="number">2</span>))</span><br><span class="line">    new_route = route1[:i] + route2[i:j] + route1[j:]</span><br><span class="line">    <span class="keyword">return</span> new_route</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_parents</span>(<span class="params">population, fitness_scores, num_parents</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Selects the top-scoring routes to serve as parents for the next generation</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    parent_indices = np.argsort(fitness_scores)[:num_parents]</span><br><span class="line">    parents = [population[i] <span class="keyword">for</span> i <span class="keyword">in</span> parent_indices]</span><br><span class="line">    <span class="keyword">return</span> parents</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_next_population</span>(<span class="params">previous_population, num_cities, num_parents</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Generates the next population of routes using genetic operators</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    population_size = <span class="built_in">len</span>(previous_population)</span><br><span class="line">    fitness_scores = [tsp_fitness(route, distance_matrix) <span class="keyword">for</span> route <span class="keyword">in</span> previous_population]</span><br><span class="line">    parents = select_parents(previous_population, fitness_scores, num_parents)</span><br><span class="line">    next_population = []</span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">len</span>(next_population) &lt; population_size:</span><br><span class="line">        parent1 = random.choice(parents)</span><br><span class="line">        parent2 = random.choice(parents)</span><br><span class="line">        child = crossover_routes(parent1, parent2)</span><br><span class="line">        <span class="keyword">if</span> random</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>Copyright Notice</strong><br>This article is the original content of <strong>Junhao</strong> except the referenced content below, and the final interpretation right belongs to the original author. If there is any infringement, please contact to delete. Without my authorization, please do not reprint it privately.</p>
+<h1 id="6-References"><a href="#6-References" class="headerlink" title="6. References"></a>6. References</h1><p>[1]. Biology LibreTexts. (2018). 7.6: Genetic Variation. <a target="_blank" rel="noopener" href="https://bio.libretexts.org/Bookshelves/Human_Biology/Book%3A_Human_Biology_%28Wakim_and_Grewal%29/07%3A_Cell_Reproduction/7.6%3A_Genetic_Variation">article</a>.</p>
+<p>[2]. Clever algorithms : nature-inspired programming recipes. United Kingdom: Lulu.com.Li, Y. (2022).</p>
+<p>[3]. Why do viruses keep mutating? Traveling salesman problem and genetic algorithm. [online] Yongle Li. Available at: <a target="_blank" rel="noopener" href="https://youtu.be/iM-VKHWd_JE">https://youtu.be/iM-VKHWd_JE</a> [Accessed 9 Feb. 2023].</p>
+<p>[4]. OpenAI (nd). ChatGPT. [online] chatGPT. Available at: <a target="_blank" rel="noopener" href="https://chat.openai.com/chat">https://chat.openai.com/chat</a>.</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Junhao</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://rqcker.github.io/2023/02/09/mutation/">https://rqcker.github.io/2023/02/09/mutation/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Mathematics-and-Programming/"># Mathematics and Programming</a>
+                    
+                        <a href="/tags/AI/"># AI</a>
+                    
+                        <a href="/tags/Algorithm/"># Algorithm</a>
+                    
+                        <a href="/tags/Evolutionary-Computing/"># Evolutionary Computing</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2024/11/26/diffusion/">Diffusion Models Fundamental Theory to Facial Interaction Generation</a>
+            
+            
+            <a class="next" rel="next" href="/2022/12/30/ml/">A brief description of machine learning and data</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>Copyright © 2019-2024 Junhao. All right reserved. | Powered by <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank"> Chic</a> </span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
