@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "Scholar"; /* Project id 4828502 */
+  font-family: "iconfont"; /* Project id 4828502 */
   src: url('iconfont.eot?t=1739579264283'); /* IE9 */
   src: url('iconfont.eot?t=1739579264283#iefix') format('embedded-opentype'), /* IE6-IE8 */
        url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAOoAAsAAAAAB6QAAANaAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHFQGYACCcAqDKIJ2ATYCJAMICwYABCAFhFsHMRunBhEVnFvIfh7Ytor1oo2xIHIigfXNesoY4/Lf+QvudwTwx957sTVlUgePK0BmE8jUiUSZzSIF/sG4vKcGSGlLhpOdtlDEBgjQ0781Z5WMUCU5ix79Qx4ovTQjtQllptyGrqmfvgdcnPkMu+nLFlU4sHnrgKKaRjhQHE9BvabaJeEVAeWG6UHOmdm4AHU7MD4OuKAZtYE4MWxHhgcCXrHKNYlBqaC47cos3ACGeIrcBXDtfz/8g1J4oqLESFkMMw2BtSeEOSbt/H9BeoOc8UowOqIICf0rs4fVenIeUKG3H0p5GYnWRQuzwBei8O9K1/3DIxCKGfGVoAXSc5LZ8lONjyCj8xLAY6++5EZbVqbAM/eLC4twOz8nXE5POa5nZ6GJLFV1jWnVZi9pAmnEgpqA2O3EPHb2WgRxtZq1HuqHuqtYsHtabT/rnkCbyxyxQGxGal+48US8V5000NKc7NkjNjASiPXu7Gc+hQUiuvNoU4NUD1tNTd22zdyp5LAXtFt2zzbXshNT63nhq1scdQ8p4ZhAQV+B6qx+D1lv0oFgoIBvVvWmjLfsAYkL9XnI/RlpbzmOTOb6q1o6UgwrgUyTZ2MmLpO86DJ0TDSLJjPa1QinY0jg9ndQTrh2r2Ov+/+z22kZCXQqirxrTCgfqTF+tpUYKriL3zXH3kmHN63u9XZrGh8jw44U5rDws7AKkN5lODHa2yfwJvsdlAqiPc338TRCm13eUNBszJdjap4BgML/h8amo791lTt6S6w/TecVT8rg/azMV7ajQentkIF/Y/FB10CvpFLECxxVOIToEgZ1R5SbDgoMtsp9X2P1OwgGJarfBF2iKYYT3glnvBsUqTAEipWYBeX6GK6vUC0GUEIuEwEQ8yEAgaobRuKTMApfh9H4AcBg8wNYVM+AyK12IxHLfcuoBC3oN0RDzVl95WwCFcUn9HdPnpJj3A15jdRg6sdc4IgNufuc9eFnEQeOqcJhnPOwFIKFKaGRPogsm2FwZR/pDdVuiyFFIAtobyAySOPcc8WZEZBCYSfIu6cqlFdA9g1iqzhGd2DSG+vho7a1qbiCd1YP3kwIBziMVOCwJi4qCgmW8mEJMkQv9HAvNgazmmur7femrw+1DgAiw4TMpBPcMVu6DgAA') format('woff2'),
@@ -8,8 +8,8 @@
        url('iconfont.svg?t=1739579264283#Scholar') format('svg');
 }
 
-.Scholar {
-  font-family: "Scholar" !important;
+.iconfont {
+  font-family: "iconfont" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
