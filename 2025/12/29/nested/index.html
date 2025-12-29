@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="default">
+<head>
+    <meta charset="UTF-8">
+<meta name="baidu-site-verification" content="codeva-ez4iU2yMBo" />
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Junhao">
+
+
+
+    <meta name="description" content="Junhao Personal Webpages">
+
+
+
+<title>A Deconstruction of Nested Learning | Junhao Song</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+    <script src="/js/404/bodymovin.js"></script>
+    
+    <script src="/js/404/data.js"></script>
+    
+
+
+
+    
+    
+        
+            <!-- MathJax 2.0 setting-->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<!-- CDN loading MathJax3.x -->
+<!-- <script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            tags: 'ams',
+            macros: {
+                href: '{}'
+            }
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            }
+        }
+    };
+</script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+        
+    
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Junhao&#39;s Webpages</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/activities">Activities</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Junhao&#39;s Webpages</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/activities">Activities</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">A Deconstruction of Nested Learning</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Junhao</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">29th December, 2025&nbsp;&nbsp;22:07:29</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Machine-Learning/">Machine Learning</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="1-Foreword"><a href="#1-Foreword" class="headerlink" title="1. Foreword"></a>1. Foreword</h1><p>Current Large Language Models (LLMs) suffer from a severe form of <em>anterograde amnesia</em>.</p>
+<p>The moment pre-training concludes, the model’s synaptic connections freeze. While In-context Learning grants a fleeting form of working memory, this is merely a transient fitting to the prompt. The model remains incapable of transmuting new information into long-term weights without re-initiating the computationally exorbitant pre-training cycle.</p>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog6/hope.png"/>
+<br>
+<strong>Figure 1: Architectural Schematic.</strong> A comparative visualisation of a standard Transformer block versus the proposed HOPE module, highlighting the integration of nested learning mechanisms [1].
+</div>
+<br>
+Google Research’s recent paper, **Nested Learning (NL)** [1], attempts to break this impasse. However, I argue that the paper’s primary contribution is not a State-of-the-Art (SOTA) result, but a radical **ontological reconstruction**:
+
+<p><strong>“Depth” is an illusion. Neural networks are fundamentally a set of Nested Optimisation Loops, distinguished only by their update frequency.</strong></p>
+<p>Without this insight, one sees merely another complex Transformer variant; with it, one perceives a unified mathematical universe.</p>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog6/rings.png"/>
+<br>
+<em><strong>Figure 2: The Nested Optimisation Spectrum.</strong> A topological reinterpretation of neural architecture. Instead of vertical depth, layers are viewed as nested loops distinguished by update frequency, ranging from instantaneous In-Context Attention to frozen Pre-trained Weights.</em>
+</div>
+<br>
+
+<h1 id="2-Everything-is-Associative-Memory"><a href="#2-Everything-is-Associative-Memory" class="headerlink" title="2. Everything is Associative Memory"></a>2. Everything is Associative Memory</h1><p>In the traditional view, the Model and the Optimiser are distinct species.</p>
+<ul>
+<li><strong>Model</strong>: $y = f(x; \theta)$ — responsible for inference.</li>
+<li><strong>Optimiser</strong>: $\theta_{t+1} = \theta_t - \eta \nabla \mathcal{L}$ — responsible for learning.</li>
+</ul>
+<p>Nested Learning presents an elegant mathematical proof: <strong>Backpropagation (BP) is itself a self-referential process of associative memory.</strong></p>
+<p>Stripping away the notation, the Attention mechanism and Gradient Descent (GD) are mathematically <strong>isomorphic</strong>. They both perform the same function: <strong>information compression</strong>.</p>
+<ol>
+<li> <strong>Attention ($f=\infty$)</strong>: Compresses the Context into hidden states via Query-Key matching at the moment of inference.</li>
+<li> <strong>SGD ($f \approx 0$)</strong>: Compresses the Dataset into Weights via Gradient signals over broad epochs.</li>
+</ol>
+<p>If one accepts this premise, current architectures leave a massive vacuum between frequencies $0$ and $\infty$. Why, then, do we lack layers operating at $f=10$ or $f=100$?</p>
+<h1 id="3-Reconstructing-HOPE"><a href="#3-Reconstructing-HOPE" class="headerlink" title="3. Reconstructing HOPE"></a>3. Reconstructing HOPE</h1><div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog6/cms.png"/>
+<br>
+<em><strong>Figure 3: Temporal Unrolling of the Continuum Memory System (CMS).</strong> This diagram illustrates the asynchronous update mechanism. Unlike standard synchronous transformers, CMS layers (depicted as horizontal tracks) update conditionally based on their assigned frequency. Solid blocks denote active plasticity, whilst ghosted blocks represent frozen inference states.</em>
+</div>
+<br>
+
+<p>Based on this theory, the authors propose the <strong>HOPE</strong> architecture. Its core component, the <strong>Continuum Memory System (CMS)</strong>, is essentially a <strong>differentiable time-divider</strong>.</p>
+<p>This contradicts the “Synchronous Update” paradigm of the Transformer. CMS allows distinct modules to “breathe” at different rates.</p>
+<p>To replicate this in code, one must dissolve the boundary between Training and Inference [3]. Consider the following logic:</p>
+<h4 id="The-Logic-of-CMS-Continuum-Memory-System"><a href="#The-Logic-of-CMS-Continuum-Memory-System" class="headerlink" title="The Logic of CMS (Continuum Memory System)"></a>The Logic of CMS (Continuum Memory System)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CMSBlock</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, input_dim, frequencies=[<span class="number">1</span>, <span class="number">16</span>, <span class="number">512</span>]</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            input_dim: Dimension of the input features.</span></span><br><span class="line"><span class="string">            frequencies: List of update periods. </span></span><br><span class="line"><span class="string">                         1 = Fast adaptation (Contextual/Short-term),</span></span><br><span class="line"><span class="string">                         512 = Slow consolidation (Long-term memory).</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        <span class="comment"># Creating independent MLPs for each frequency level.</span></span><br><span class="line">        <span class="comment"># These act as parallel processors operating on distinct time scales.</span></span><br><span class="line">        self.levels = nn.ModuleList([</span><br><span class="line">            nn.Sequential(</span><br><span class="line">                nn.Linear(input_dim, input_dim * <span class="number">4</span>),</span><br><span class="line">                nn.SiLU(),</span><br><span class="line">                nn.Linear(input_dim * <span class="number">4</span>, input_dim)</span><br><span class="line">            ) <span class="keyword">for</span> _ <span class="keyword">in</span> frequencies</span><br><span class="line">        ])</span><br><span class="line">        self.freqs = frequencies</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Each level maintains its own &#x27;optimiser state&#x27; (simplified here as momentum).</span></span><br><span class="line">        <span class="comment"># In a production implementation, this distributes the Adam state </span></span><br><span class="line">        <span class="comment"># directly into the forward pass logic.</span></span><br><span class="line">        self.states = [torch.zeros(input_dim, input_dim) <span class="keyword">for</span> _ <span class="keyword">in</span> frequencies]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward_and_learn</span>(<span class="params">self, x, global_step</span>):</span></span><br><span class="line">        output = x</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 1. Forward Pass: Signal propagates through all frequency levels.</span></span><br><span class="line">        <span class="comment"># This follows standard residual connection behaviour.</span></span><br><span class="line">        <span class="keyword">for</span> mlp <span class="keyword">in</span> self.levels:</span><br><span class="line">            output = mlp(output) + output</span><br><span class="line">            </span><br><span class="line">        <span class="comment"># 2. Nested Learning: Conditional update logic.</span></span><br><span class="line">        <span class="comment"># Crucial: This blurs the line between training and inference.</span></span><br><span class="line">        <span class="comment"># The &#x27;backward&#x27; pass is fragmented and executed locally.</span></span><br><span class="line">        <span class="keyword">if</span> self.training:</span><br><span class="line">            <span class="keyword">for</span> i, (mlp, freq) <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(self.levels, self.freqs)):</span><br><span class="line">                <span class="comment"># Only trigger plasticity if the current step aligns with the frequency.</span></span><br><span class="line">                <span class="comment"># This creates the &#x27;nested&#x27; temporal structure.</span></span><br><span class="line">                <span class="keyword">if</span> global_step % freq == <span class="number">0</span>:</span><br><span class="line">                    self.local_update(mlp, x, self.states[i])</span><br><span class="line">                    </span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">local_update</span>(<span class="params">self, mlp, x, state</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        The soul of NL: Asynchronous, local self-modification.</span></span><br><span class="line"><span class="string">        This relies on local reconstruction error rather than global backpropagation.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># Self-supervised prediction (reconstruction task).</span></span><br><span class="line">        pred = mlp(x.detach()) </span><br><span class="line">        loss = (pred - x.detach()).norm(p=<span class="number">2</span>) <span class="comment"># L2 Regression Loss acts as the objective.</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Manual gradient calculation locally.</span></span><br><span class="line">        grads = torch.autograd.grad(loss, mlp.parameters())</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Execute update (Simulating Momentum SGD).</span></span><br><span class="line">        <span class="comment"># Note: In a full implementation, this implies the &#x27;M3&#x27; optimiser logic.</span></span><br><span class="line">        <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">            <span class="keyword">for</span> param, grad <span class="keyword">in</span> <span class="built_in">zip</span>(mlp.parameters(), grads):</span><br><span class="line">                <span class="comment"># Update momentum state (memory of gradients).</span></span><br><span class="line">                state.mul_(<span class="number">0.9</span>).add_(grad)</span><br><span class="line">                <span class="comment"># Update actual weights.</span></span><br><span class="line">                param.sub_(<span class="number">0.01</span> * state)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="The-Logic-of-Self-Modifying-Titans-2"><a href="#The-Logic-of-Self-Modifying-Titans-2" class="headerlink" title="The Logic of Self-Modifying Titans [2]"></a>The Logic of Self-Modifying Titans [2]</h4><p>This section often appears esoteric to readers. In Control Theory, however, it is simply <strong>Adaptive Gain</strong>.</p>
+<p>The model is no longer a passive recipient of a manually tuned Learning Rate; it generates its own parameters based on the “surprise” of the current data. This is effectively Meta-learning at token-level granularity.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SelfModifyingTitan</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x, memory_state</span>):</span></span><br><span class="line">        <span class="comment"># 1. Parameter Generation</span></span><br><span class="line">        <span class="comment"># All control parameters are predicted directly from the current input x.</span></span><br><span class="line">        <span class="comment"># The model is effectively &#x27;programming&#x27; itself on the fly.</span></span><br><span class="line">        q = self.W_q(x)</span><br><span class="line">        k = self.adapter_k(x) </span><br><span class="line">        v = self.adapter_v(x)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># The model determines the learning rate (eta) and decay (alpha) dynamically.</span></span><br><span class="line">        eta = torch.sigmoid(self.adapter_eta(x)) </span><br><span class="line">        alpha = torch.sigmoid(self.adapter_alpha(x))</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 2. Memory Retrieval</span></span><br><span class="line">        y = torch.matmul(memory_state, q)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 3. Memory Update (The Differentiable Optimiser Step)</span></span><br><span class="line">        <span class="comment"># Utilising a variant of the Delta Rule / Hebbian Learning.</span></span><br><span class="line">        <span class="comment"># Formula: M_new = alpha * M_old - eta * grad_L(M)</span></span><br><span class="line">        </span><br><span class="line">        predicted_v = torch.matmul(memory_state, k)</span><br><span class="line">        error = predicted_v - v <span class="comment"># The error signal (Surprise).</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Outer product for weight update.</span></span><br><span class="line">        <span class="comment"># This is where &#x27;learning&#x27; occurs during the forward pass.</span></span><br><span class="line">        update_term = torch.einsum(<span class="string">&#x27;b d, b k -&gt; b d k&#x27;</span>, error, k) </span><br><span class="line">        new_memory_state = alpha * memory_state - eta * update_term</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> y, new_memory_state</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="4-Critical-Thoughts"><a href="#4-Critical-Thoughts" class="headerlink" title="4. Critical Thoughts"></a>4. Critical Thoughts</h1><p>Drawing on OpenReview [4] discussions and experience in High-Performance Computing (HPC), we must examine this technology critically.</p>
+<p><strong>1. Consciousness vs. Smart Cache</strong><br>Reviewers astutely noted that this mechanism resembles a <strong>Differentiable Smart Cache</strong>. Fast Layers correspond to L1 Cache (CPU), while Slow Layers correspond to Disk. HOPE simply transforms the Cache into a trainable neural component. While this mitigates Catastrophic Forgetting, it does not fundamentally solve logical reasoning. It simply excels at “rote memorisation”.</p>
+<p><strong>2. The Hidden Cost of Sparse Updates</strong><br>The paper claims CMS is computationally efficient. However, anyone familiar with GPU architectures (e.g., NVIDIA H100) will recognise that logic such as <code>if step % freq == 0</code> is an <strong>HPC nightmare</strong>.</p>
+<ul>
+<li><strong>Warp Divergence</strong>: Non-uniform Control Flow causes CUDA Core utilisation to plummet.</li>
+<li><strong>Pipeline Bubbles</strong>: In distributed training, asynchronous updates render Gradient Synchronisation (AllReduce) excessively complex.</li>
+</ul>
+<p>In deployment, the wall-clock time gains may be significantly lower than the theoretical reduction in FLOPs.</p>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/Rqcker/ImageHosting/master/blog/blog6/hardware.png"/>
+<br>
+<em><strong>Figure 4: Hardware Efficiency Analysis (Trace View).</strong> A comparative profile of GPU pipeline utilisation. Panel (A) shows the dense compute of Standard Transformers, whilst Panel (B) demonstrates how Nested Learning induces 'Pipeline Bubbles' and warp divergence due to conditional sparse updates, highlighting the trade-off between theoretical FLOPs reduction and wall-clock latency.</em>
+</div>
+
+<p><strong>3. Financial Implications: Handling Regime Change</strong><br>From a Quantitative Finance perspective, Catastrophic Forgetting is simply a <strong>Regime Switch</strong>. Traditional LLMs assume a stationary distribution for training data. NL allows the model to adjust local parameters dynamically during inference—essentially <strong>Online Risk Adaptation</strong>. For high-frequency trading or real-time risk modelling, this capability (“learning while running”) may prove far more disruptive than its applications in NLP.</p>
+<h1 id="5-Final-Thoughts"><a href="#5-Final-Thoughts" class="headerlink" title="5. Final Thoughts"></a>5. Final Thoughts</h1><p>Nested Learning acts as a mirror. It reveals that <strong>Parameters are not sacred, static entities; they are simply memory variables with an extremely low frequency.</strong></p>
+<p>When one writes <code>param.sub_(0.01 * state)</code>, one is not merely writing code; one is designing a digital entity with multiple temporal perceptions.</p>
+<p>The architectural battles of the future will not be fought over Depth, but over <strong>Frequency Bandwidth</strong>.</p>
+<p><strong>Copyright Notice</strong><br>This article, except for the referenced content below, is the original work of <strong>Junhao</strong>. The author retains the exclusive rights to its final interpretation. If there are any issues regarding copyright infringement, please contact me for removal. Reproduction or distribution of this content without my explicit permission is prohibited.</p>
+<h1 id="6-References"><a href="#6-References" class="headerlink" title="6. References"></a>6. References</h1><p>[1]. Behrouz, A., Razaviyayn, M., Zhong, P., &amp; Mirrokni, V. (2025). Nested Learning: The Illusion of Deep Learning Architecture. Google Research. The Thirty-ninth Annual Conference on Neural Information Processing Systems (NeurIPS).</p>
+<p>[2]. Behrouz, A., Pezeshki, M., et al. (2025). Titans: Learning to Memorize at Test Time. Google Research. arXiv preprint arXiv:2501.00663 (2024).</p>
+<p>[3]. Sun, Y., et al. (2020). Test-Time Training with Self-Supervision for Generalization under Distribution Shifts. International Conference on Machine Learning (ICML).</p>
+<p>[4]. OpenReview Forum. (2025). Nested Learning: The Illusion of Deep Learning Architecture. Available at: <a target="_blank" rel="noopener" href="https://openreview.net/forum?id=nbMeRvNb7A">https://openreview.net/forum?id=nbMeRvNb7A</a></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Junhao</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://rqcker.github.io/2025/12/29/nested/">https://rqcker.github.io/2025/12/29/nested/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/AI/"># AI</a>
+                    
+                        <a href="/tags/Machine-Learning/"># Machine Learning</a>
+                    
+                        <a href="/tags/Algorithm/"># Algorithm</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2024/11/26/diffusion/">Diffusion Models Fundamental Theory to Facial Interaction Generation</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>Copyright © 2019-2025 Junhao. All right reserved. | Powered by <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank"> Chic</a> </span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
